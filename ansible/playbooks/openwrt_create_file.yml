@@ -3,10 +3,10 @@
   hosts: all
   gather_facts: false
   become: false
-  collections:
-    - community.openwrt
-  roles:
-    - community.openwrt.init
+  # collections:
+  #   - community.openwrt
+  # roles:
+  #   - community.openwrt.init
   vars:
     openwrt_test_file: /tmp/test1.txt
     openwrt_test_content: "test form ansible and semaphore"
