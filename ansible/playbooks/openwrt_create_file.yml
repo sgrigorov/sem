@@ -8,7 +8,7 @@
   roles:
     - community.openwrt.init
   vars:
-    openwrt_test_file: /tmp/test.txt
+    openwrt_test_file: /tmp/test1.txt
     openwrt_test_content: "test form ansible and semaphore"
   tasks:
     - name: Create or update the file content
