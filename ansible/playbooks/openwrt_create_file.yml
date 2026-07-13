@@ -1,0 +1,27 @@
+---
+- name: Create a file on OpenWrt with community.openwrt modules
+  hosts: openwrt
+  gather_facts: false
+  become: false
+  collections:
+    - community.openwrt
+  roles:
+    - community.openwrt.init
+  vars:
+    openwrt_test_file: /tmp/test.txt
+    openwrt_test_content: "test form ansible and semaphore"
+  tasks:
+    - name: Create or update the file content
+      community.openwrt.copy:
+        dest: "{{ openwrt_test_file }}"
+        content: "{{ openwrt_test_content }}\n"
+        mode: "0644"
+
+    - name: Verify resulting file content
+      community.openwrt.slurp:
+        src: "{{ openwrt_test_file }}"
+      register: openwrt_file_content
+
+    - name: Show resulting file content
+      ansible.builtin.debug:
+        msg: "{{ openwrt_file_content.content | b64decode | trim }}"
