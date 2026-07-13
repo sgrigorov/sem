@@ -1,0 +1,12 @@
+telnet:
+  command:  # required. List of commands to be executed in the telnet session.
+  host: remote_addr # not required. The host/target on which to execute the command
+  user: remote_user # not required. The user for login
+  password:  # not required. The password for login
+  port: 23 # not required. Remote port to use
+  timeout: 120 # not required. timeout for remote operations
+  prompts: ['$'] # not required. List of prompts expected before sending next command
+  login_prompt: "login: " # not required. Login or username prompt to expect
+  password_prompt: "Password: " # not required. Login or username prompt to expect
+  pause: 1 # not required. Seconds to pause between each command issued
+  send_newline: False # not required. Sends a newline character upon successful connection to start the terminal session.
