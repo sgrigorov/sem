@@ -1,6 +1,6 @@
 ---
 - name: Create a file on OpenWrt with community.openwrt modules
-  hosts: openwrt
+  hosts: all
   gather_facts: false
   become: false
   collections:
