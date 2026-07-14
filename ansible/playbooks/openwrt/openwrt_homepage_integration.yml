@@ -55,19 +55,39 @@
         path: /etc/config/rpcd3
         line: "option dns '8.8.8.8'"
     
-    - name: Add multiple lines to OpenWrt config
-      community.openwrt.lineinfile: # Fallback using standard blockinfile
-      blockinfile:
+    # - name: Add multiple lines to OpenWrt config
+    #   community.openwrt.lineinfile: # Fallback using standard blockinfile
+    #   blockinfile:
+    #     path: /etc/config/rpcd4
+    #     block: |
+    #       config interface 'lan'
+    #         option type 'bridge'
+    #         option ifname 'eth0.1'
+    #         option proto 'static'
+    #         option ipaddr '192.168.1.1'
+    #         option netmask '255.255.255.0'
+    #     marker: "# {mark} ANSIBLE MANAGED LAN BLOCK"
+    #     state: present
+
+    - name: Append raw block to /etc/config/rpcd
+      community.openwrt.lineinfile:
         path: /etc/config/rpcd4
-        block: |
-          config interface 'lan'
-            option type 'bridge'
-            option ifname 'eth0.1'
-            option proto 'static'
-            option ipaddr '192.168.1.1'
-            option netmask '255.255.255.0'
-        marker: "# {mark} ANSIBLE MANAGED LAN BLOCK"
+        # Using blockinfile wrapper functionality inside lineinfile
+        line: |
+          config login
+            option username 'homepage'
+            option password '$1$$pwhq2EIVmZupQR9Ab5lcF1'
+            list read 'homepage'
+        insertafter: EOF
         state: present
+      # notify: Restart rpcd
+
+    # - handlers:
+    #   - name: Restart rpcd
+    #     community.openwrt.service:
+    #       name: rpcd
+    #       state: restarted
+
     # - name: Verify resulting file content
     #   community.openwrt.slurp:
     #     src: "{{ openwrt_test_file }}"
