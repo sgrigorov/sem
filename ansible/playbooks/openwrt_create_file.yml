@@ -8,7 +8,7 @@
   # roles:
   #   - community.openwrt.init
   vars:
-    openwrt_homepage_json_file: /usr/share/rpcd/acl.d/homepage.json.txt
+    openwrt_homepage_json_file: /usr/share/rpcd/acl.d/homepage.json
     openwrt_test_content: |
       test form ansible and semaphore
       {{ lookup('env', 'OPENWRT_PASS2') }}
