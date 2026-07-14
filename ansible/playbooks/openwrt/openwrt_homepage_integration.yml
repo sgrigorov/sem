@@ -78,7 +78,7 @@
             option username 'homepage'
             option password '$1$$pwhq2EIVmZupQR9Ab5lcF1'
             list read 'homepage'
-        insertafter: EOF
+        insertbefore: EOF
         state: present
       # notify: Restart rpcd
 
