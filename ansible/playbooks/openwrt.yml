@@ -1,2 +1,2 @@
 ---
-- import_playbook: openwrt_homepage_integration.yml
+- import_playbook: openwrt/openwrt_homepage_integration.yml
