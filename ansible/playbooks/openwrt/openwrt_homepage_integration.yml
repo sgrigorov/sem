@@ -102,11 +102,11 @@
             - 'homepage'
       notify: Restart rpcd
 
-    handlers:
-      - name: Restart rpcd
-        community.openwrt.service:
-          name: rpcd
-          state: restarted
+  handlers:
+    - name: Restart rpcd
+      community.openwrt.service:
+        name: rpcd
+        state: restarted
 
     # - name: Verify resulting file content
     #   community.openwrt.slurp:
