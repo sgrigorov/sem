@@ -69,7 +69,7 @@
     #     marker: "# {mark} ANSIBLE MANAGED LAN BLOCK"
     #     state: present
 
-    - name: Append raw block to /etc/config/rpcd
+    - name: Append raw block to /etc/config/rpcd4
       community.openwrt.lineinfile:
         path: /etc/config/rpcd4
         # Using blockinfile wrapper functionality inside lineinfile
