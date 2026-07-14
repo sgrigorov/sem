@@ -9,7 +9,7 @@
   #   - community.openwrt.init
   vars:
     openwrt_test_file: /usr/share/rpcd/acl.d/homepage.json.txt
-    openwrt_test_content: "test form ansible and semaphore {{OPENWRT_PASS}}"
+    openwrt_test_content: "test form ansible and semaphore {{OPENWRT_PASS1}}"
   tasks:
     - name: Create or update the file content
       community.openwrt.copy:
