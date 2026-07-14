@@ -50,6 +50,20 @@
             - 'homepage'
       notify: Restart rpcd
 
+    - name: Commit homepage login to /etc/config/rpcd
+      community.openwrt.uci:
+        command: section
+        config: rpcd
+        type: commit
+        # find:
+        #   username: 'homepage'
+        # value:
+        #   username: 'homepage'
+        #   password: '{{ lookup("env", "OPENWRT_PASS") }}'
+        #   read:
+        #     - 'homepage'
+      notify: Restart rpcd
+
   handlers:
     - name: Restart rpcd
       community.openwrt.service:
