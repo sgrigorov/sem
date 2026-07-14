@@ -45,7 +45,7 @@
           username: 'homepage'
         value:
           username: 'homepage'
-          password: '{{ lookup('env', 'OPENWRT_PASS') }}'
+          password: '{{ lookup("env", "OPENWRT_PASS") }}'
           read:
             - 'homepage'
       notify: Restart rpcd
