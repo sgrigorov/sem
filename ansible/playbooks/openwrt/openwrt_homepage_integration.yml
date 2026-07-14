@@ -12,7 +12,7 @@
     openwrt_etc_config_rpcd_content: |
       config login
         option username 'homepage'
-        option password '{{ lookup('env', 'OPENWRT_PASS2') }}'
+        option password '{{ lookup('env', 'OPENWRT_PASS') }}'
         list read 'homepage'
     openwrt_homepage_json_file: /usr/share/rpcd/acl.d/homepage.json
     openwrt_homepage_json_content: |
