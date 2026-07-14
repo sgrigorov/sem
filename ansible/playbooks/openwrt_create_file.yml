@@ -8,13 +8,29 @@
   # roles:
   #   - community.openwrt.init
   vars:
-    openwrt_test_file: /usr/share/rpcd/acl.d/homepage.json.txt
-    openwrt_test_content: "test form ansible and semaphore {{ lookup('env', 'OPENWRT_PASS2') }}"
+    openwrt_homepage_json_file: /usr/share/rpcd/acl.d/homepage.json.txt
+    openwrt_test_content: |
+      test form ansible and semaphore
+      {{ lookup('env', 'OPENWRT_PASS2') }}
+    openwrt_homepage_json_content: |
+      {
+        "homepage": {
+          "description": "Homepage widget",
+          "read": {
+            "ubus": {
+              "network.interface.wan": ["status"],
+              "network.interface.lan": ["status"],
+              "network.device": ["status"],
+              "system": ["info"]
+            }
+          }
+        }
+      }
   tasks:
     - name: Create or update the file content
       community.openwrt.copy:
-        dest: "{{ openwrt_test_file }}"
-        content: "{{ openwrt_test_content }}\n"
+        dest: "{{ openwrt_homepage_json_file }}"
+        content: "{{ openwrt_homepage_json_content }}"
         mode: "0644"
 
     # - name: Verify resulting file content
