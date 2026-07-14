@@ -71,7 +71,7 @@
 
     - name: Append raw block to /etc/config/rpcd4
       community.openwrt.lineinfile:
-        path: /etc/config/rpcd4
+        path: /etc/config/rpcd5
         # Using blockinfile wrapper functionality inside lineinfile
         line: |
           config login
@@ -87,6 +87,19 @@
     #     community.openwrt.service:
     #       name: rpcd
     #       state: restarted
+
+    - name: Add homepage login to rpcd
+      community.openwrt.uci:
+        command: section
+        config: rpcd
+        type: login
+        find:
+          username: 'homepage1'
+        value:
+          username: 'homepage1'
+          password: 'password'
+          read:
+            - 'homepage'
 
     # - name: Verify resulting file content
     #   community.openwrt.slurp:
