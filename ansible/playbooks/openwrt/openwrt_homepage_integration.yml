@@ -8,10 +8,13 @@
   # roles:
   #   - community.openwrt.init
   vars:
+    openwrt_etc_config_rpcd_file: /etc/config/rpcd1
+    openwrt_etc_config_rpcd_content: |
+      config login
+        option username 'homepage'
+        option password '{{ lookup('env', 'OPENWRT_PASS2') }}'
+        list read 'homepage'
     openwrt_homepage_json_file: /usr/share/rpcd/acl.d/homepage.json
-    openwrt_test_content: |
-      test form ansible and semaphore
-      {{ lookup('env', 'OPENWRT_PASS2') }}
     openwrt_homepage_json_content: |
       {
         "homepage": {
@@ -27,7 +30,12 @@
         }
       }
   tasks:
-    - name: Create or update the file content
+    - name: Create or update the content of {{openwrt_etc_config_rpcd_file}} file
+      community.openwrt.copy:
+        dest: "{{ openwrt_etc_config_rpcd_file }}"
+        content: "{{ openwrt_etc_config_rpcd_content }}"
+        mode: "0600"
+    - name: Create or update the content of {{openwrt_homepage_json_file}} file
       community.openwrt.copy:
         dest: "{{ openwrt_homepage_json_file }}"
         content: "{{ openwrt_homepage_json_content }}"
