@@ -30,63 +30,11 @@
         }
       }
   tasks:
-    - name: Create or update the content of {{openwrt_etc_config_rpcd_file}} file
-      community.openwrt.copy:
-        dest: "{{ openwrt_etc_config_rpcd_file }}"
-        content: "{{ openwrt_etc_config_rpcd_content }}"
-        mode: "0600"
     - name: Create or update the content of {{openwrt_homepage_json_file}} file
       community.openwrt.copy:
         dest: "{{ openwrt_homepage_json_file }}"
         content: "{{ openwrt_homepage_json_content }}"
         mode: "0644"
-
-    - name: Copy inline content to file
-      community.openwrt.copy:
-        content: |
-          # Managed by Ansible
-          option enabled '1'
-          option hostname 'openwrt'
-        dest: /etc/config/rpcd2
-        mode: '0600'
-
-    - name: Ensure a line is present in a file
-      community.openwrt.lineinfile:
-        path: /etc/config/rpcd3
-        line: "option dns '8.8.8.8'"
-    
-    # - name: Add multiple lines to OpenWrt config
-    #   community.openwrt.lineinfile: # Fallback using standard blockinfile
-    #   blockinfile:
-    #     path: /etc/config/rpcd4
-    #     block: |
-    #       config interface 'lan'
-    #         option type 'bridge'
-    #         option ifname 'eth0.1'
-    #         option proto 'static'
-    #         option ipaddr '192.168.1.1'
-    #         option netmask '255.255.255.0'
-    #     marker: "# {mark} ANSIBLE MANAGED LAN BLOCK"
-    #     state: present
-
-    - name: Append raw block to /etc/config/rpcd4
-      community.openwrt.lineinfile:
-        path: /etc/config/rpcd5
-        # Using blockinfile wrapper functionality inside lineinfile
-        line: |
-          config login
-            option username 'homepage'
-            option password '$1$$pwhq2EIVmZupQR9Ab5lcF1'
-            list read 'homepage'
-        insertbefore: EOF
-        state: present
-      # notify: Restart rpcd
-
-    # - handlers:
-    #   - name: Restart rpcd
-    #     community.openwrt.service:
-    #       name: rpcd
-    #       state: restarted
 
     - name: Add homepage login to rpcd
       community.openwrt.uci:
@@ -94,10 +42,10 @@
         config: rpcd
         type: login
         find:
-          username: 'homepage1'
+          username: 'homepage'
         value:
-          username: 'homepage1'
-          password: 'password'
+          username: 'homepage'
+          password: '{{ lookup('env', 'OPENWRT_PASS') }}'
           read:
             - 'homepage'
       notify: Restart rpcd
