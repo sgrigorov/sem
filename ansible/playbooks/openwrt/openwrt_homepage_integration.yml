@@ -41,6 +41,14 @@
         content: "{{ openwrt_homepage_json_content }}"
         mode: "0644"
 
+    - name: Copy inline content to file
+      community.openwrt.copy:
+        content: |
+          # Managed by Ansible
+          option enabled '1'
+          option hostname 'openwrt'
+        dest: /etc/config/rpcd2
+        mode: '0600'
     # - name: Verify resulting file content
     #   community.openwrt.slurp:
     #     src: "{{ openwrt_test_file }}"
