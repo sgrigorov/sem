@@ -53,9 +53,9 @@
 
     - name: Commit homepage login to /etc/config/rpcd
       community.openwrt.uci:
-        command: section
+        command: commit
         config: rpcd
-        type: commit
+        # type: commit
         # find:
         #   username: 'homepage'
         # value:
