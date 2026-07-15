@@ -38,24 +38,26 @@
 
     - name: Add homepage login to rpcd
       community.openwrt.uci:
-        command: login
+        autocommit: true
+        command: section
         config: rpcd
+        type: login
         find:
-          username: 'homepage2'
+          username: 'homepage3'
         value:
-          username: 'homepage2'
+          username: 'homepage3'
           password: '{{ lookup("env", "OPENWRT_PASS") }}'
           read:
             - 'homepage'
-      register: rpcd_homepage_login
+      # register: rpcd_homepage_login
       notify: Restart rpcd
 
-    - name: Commit homepage login to /etc/config/rpcd
-      community.openwrt.uci:
-        command: commit
-        config: rpcd
-      when: rpcd_homepage_login.changed
-      notify: Restart rpcd
+    # - name: Commit homepage login to /etc/config/rpcd
+    #   community.openwrt.uci:
+    #     command: commit
+    #     config: rpcd
+    #   when: rpcd_homepage_login.changed
+    #   notify: Restart rpcd
 
   handlers:
     - name: Restart rpcd
