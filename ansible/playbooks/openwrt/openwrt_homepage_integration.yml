@@ -52,13 +52,6 @@
       # register: rpcd_homepage_login
       notify: Restart rpcd
 
-    # - name: Commit homepage login to /etc/config/rpcd
-    #   community.openwrt.uci:
-    #     command: commit
-    #     config: rpcd
-    #   when: rpcd_homepage_login.changed
-    #   notify: Restart rpcd
-
   handlers:
     - name: Restart rpcd
       community.openwrt.service:
