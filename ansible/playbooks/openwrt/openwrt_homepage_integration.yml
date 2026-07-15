@@ -42,9 +42,9 @@
         config: rpcd
         type: login
         find:
-          username: 'homepage'
+          username: 'homepage1'
         value:
-          username: 'homepage'
+          username: 'homepage1'
           password: '{{ lookup("env", "OPENWRT_PASS") }}'
           read:
             - 'homepage'
